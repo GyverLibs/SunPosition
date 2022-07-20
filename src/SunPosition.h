@@ -6,6 +6,7 @@
     - Берёт широту, долготу и unix время
     - Выдаёт угол по азимуту, угол возвышения и склонения солнца
     
+    Основано на https://forum.arduino.cc/t/sun-position-calculator-im-looking-for-good-code-to-calculate-values/244220
     AlexGyver, alex@alexgyver.ru
     https://alexgyver.ru/
     MIT License
