@@ -1,0 +1,20 @@
+#######################################
+# Syntax Coloring Map For SunPosition
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+SunPosition	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+compute	KEYWORD2
+altitude	KEYWORD2
+azimuth	KEYWORD2
+declination	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
