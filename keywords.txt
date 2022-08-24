@@ -6,6 +6,7 @@
 # Datatypes (KEYWORD1)
 #######################################
 SunPosition	KEYWORD1
+SP_PRECISE	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -13,7 +14,15 @@ SunPosition	KEYWORD1
 compute	KEYWORD2
 altitude	KEYWORD2
 azimuth	KEYWORD2
+azimuthMin	KEYWORD2
+azimuthMax	KEYWORD2
 declination	KEYWORD2
+angle180	KEYWORD2
+zenith	KEYWORD2
+sunrise	KEYWORD2
+noon	KEYWORD2
+sunset	KEYWORD2
+daylight	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
