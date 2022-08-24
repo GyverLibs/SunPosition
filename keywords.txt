@@ -18,6 +18,7 @@ azimuthMin	KEYWORD2
 azimuthMax	KEYWORD2
 declination	KEYWORD2
 angle180	KEYWORD2
+angle90	KEYWORD2
 zenith	KEYWORD2
 sunrise	KEYWORD2
 noon	KEYWORD2

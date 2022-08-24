@@ -74,26 +74,26 @@ struct SunPosition {
         azm = (hrAngl > 0) ? (azm + 180) : (540 - azm);
         azm = fmod(azm, 360);
         zen = 90 - degrees(lat) + decl;
-        angle = round(ha);  // 8 * ha * 360 / 60 / 24 / 2
+        //angle = round(ha);  // 8 * ha * 360 / 60 / 24 / 2
     }
 
     // время рассвета, в минутах от начала дня по локальному времени
-    uint16_t sunrise() {
+    int sunrise() {
         return noonT - ha * 4;
     }
     
     // полдень, в минутах от начала дня по локальному времени
-    uint16_t noon() {
+    int noon() {
         return noonT;
     }
     
     // время заката, в минутах от начала дня по локальному времени
-    uint16_t sunset() {
+    int sunset() {
         return noonT + ha * 4;
     }
     
     // длительность светового дня, в минутах
-    uint16_t daylight() {
+    int daylight() {
         return ha * 8;
     }
     
@@ -118,19 +118,24 @@ struct SunPosition {
     }
     
     // азимут рассвета
-    uint16_t azimuthMin() {
+    int azimuthMin() {
         return (180 - round(ha));
     }
     
     // азимут заката
-    uint16_t azimuthMax() {
+    int azimuthMax() {
         return (180 + round(ha));
     }
     
-    // азимут, масштабированный в диапазон 0-180 градусов для поворота солнечной панели (летом 0..180, зимой 50.. 130)
-    uint16_t angle180() {
-        uint16_t a = round(ha);
+    // азимут, масштабированный в диапазон 0..180 градусов для поворота солнечной панели (летом 0..180, зимой 50.. 130)
+    int angle180() {
+        int a = round(ha);
         return map(azm, 180 - a, 180 + a, 90 - min(a, 90), 90 + min(a, 90));
+    }
+    
+    // азимут, масштабированный в диапазон -90..90 градусов для поворота солнечной панели (летом -90..90, зимой -20.. 20)
+    int angle90() {
+        return angle180() - 90;
     }
 
     float alt = 0, azm = 0, decl = 0, zen = 0, ha = 0;
