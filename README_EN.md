@@ -1,106 +1,114 @@
 This is an automatic translation, may be incorrect in some places. See sources and examples!
 
-# SunPosition
-Library for determining the position of the sun by geolocation and time
-- Takes latitude, longitude and unix time
-- Gives the angle in azimuth, elevation and declination of the sun
+# Sunposition
+Library for determining the position of the Sun by geolocation and time
+- takes breadth, longitude and unix time
+- gives an angle by azimuth, the angle of elevation and declination of the sun
 
-### Compatibility
-Compatible with all Arduino platforms (using Arduino functions)
+## compatibility
+Compatible with all arduino platforms (used arduino functions)
 
 ## Content
-- [Install](#install)
-- [Initialization](#init)
-- [Usage](#usage)
-- [Example](#example)
-- [Versions](#versions)
-- [Bugs and feedback](#feedback)
+- [installation] (# Install)
+- [initialization] (#init)
+- [use] (#usage)
+- [Example] (# Example)
+- [versions] (#varsions)
+- [bugs and feedback] (#fedback)
 
-<a id="install"></a>
+<a id="install"> </a>
 ## Installation
-- The library can be found by the name **SunPosition** and installed through the library manager in:
-    - Arduino IDE
-    - Arduino IDE v2
-    - PlatformIO
-- [Download library](https://github.com/GyverLibs/SunPosition/archive/refs/heads/main.zip) .zip archive for manual installation:
-    - Unzip and put in *C:\Program Files (x86)\Arduino\libraries* (Windows x64)
-    - Unzip and put in *C:\Program Files\Arduino\libraries* (Windows x32)
-    - Unpack and put in *Documents/Arduino/libraries/*
-    - (Arduino IDE) automatic installation from .zip: *Sketch/Include library/Add .ZIP library…* and specify the downloaded archive
-- Read more detailed instructions for installing libraries [here] (https://alexgyver.ru/arduino-first/#%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE% D0%B2%D0%BA%D0%B0_%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA)
+- The library can be found by the name ** suposition ** and installed through the library manager in:
+    - Arduino ide
+    - Arduino ide v2
+    - Platformio
+- [download the library] (https://github.com/gyverlibs/sunposition/archive/refs/heads/main.zip) .Zip archive for manual installation:
+    - unpack and put in * C: \ Program Files (X86) \ Arduino \ Libraries * (Windows X64)
+    - unpack and put in * C: \ Program Files \ Arduino \ Libraries * (Windows X32)
+    - unpack and put in *documents/arduino/libraries/ *
+    - (Arduino id) Automatic installation from. Zip: * sketch/connect the library/add .Zip library ... * and specify downloaded archive
+- Read more detailed instructions for installing libraries [here] (https://alexgyver.ru/arduino-first/#%D0%A3%D1%81%D1%82%D0%B0%BD%D0%BE%BE%BE%BED0%B2%D0%BA%D0%B0_%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA)
 ### Update
-- I recommend always updating the library: new versions fix errors and bugs, as well as optimize and add new features
-- Through the IDE library manager: find the library as during installation and click "Update"
-- Manually: **delete the folder with the old version**, and then put the new one in its place. "Replacement" cannot be done: sometimes new versions delete files that remain after replacement and can lead to errors!
+- I recommend always updating the library: errors and bugs are corrected in the new versions, as well as optimization and new features are added
+- through the IDE library manager: find the library how to install and click "update"
+- Manually: ** remove the folder with the old version **, and then put a new one in its place.“Replacement” cannot be done: sometimes in new versions, files that remain when replacing are deleted and can lead to errors!
 
 
-<a id="init"></a>
-## Initialization
-```cpp
+<a id="init"> </a>
+## initialization
+`` `CPP
 // initialize without calculation
-SunPosition pos;
+SunPounion POS;
 
-// specify latitude (degrees), longitude (degrees), unix time (seconds)
-// calculation will be performed
-SunPosition(latitude, longitude, unix);
-```
+// indicate latitude (degrees), longitude (degrees), unix time (seconds), a calculation will be performed
+SunPounion (Latitude, Longitude, Unix);
+SunPounion (Latitude, Longitude, Unix, GMT);// + hourly belt in hours or minutes
+`` `
 
-<a id="usage"></a>
+<a id="usage"> </a>
 ## Usage
-```cpp
-// perform calculation, specify latitude (degrees), longitude (degrees), unix time (seconds)
-void compute(float latitude, float longitude, uint32_t unix);
-    
-// get the height of the sun above the horizon, degrees
-altitude float();
+`` `CPP
+// perform the calculation, indicate the latitude (degrees), longitude (degrees), unix time (seconds)
+Void Compute (Float Latitude, Float Longitude, Uint32_T Unix);
 
-// get the angle of the sun in azimuth (from north clockwise), degrees
-float azimuth();
+// perform the calculation, specify the latitude (degrees), longitude (degrees), unix time (seconds), an hourly belt in hours or minutes
+Void Compute (Float Latitude, Float Longitude, Uint32_T Unix, Int16_T GMT);
 
-// get the angle of the sun (-23.. 23 during the year), degrees
-float declaration();
-```
+int sunrise ();// Dawn time, minutes from the beginning of the day in local time
+int noon ();// Half, in minutes from the beginning of the day in local time
+int sunset ();// Sunset time, minutes from the beginning of the day in local time
+int daylight ();// Duration of daylight hours, in minutes
+Float altitude ();// Avoor angle
+Float Decline ();// angle of declension
+Float Zenith ();// Zenit angle at noon
+Float Azimuth ();// Azimuth of the Sun, from the north clockwise
+int Azimuthmin ();// Azimuth of Dawn
+int Azimuthmax ();// Azimuth of sunset
+int angle180 ();// azimuth, scaled in the range 0-180 degrees DCranberries of turning the solar panel (in summer 0..180, in winter 50 .. 130)
+int angle90 ();// Azimuth, scaled in the range -90..90 degrees for turning the solar panel (in summer -90..90, in winter -20 .. 20)
+`` `
 
-- Latitude and longitude of a place can be taken from any maps (Yandex, Google)
-- Unix time can be taken from any real time source (RTC, NTP)
+- The latitude and longitude can be taken from any cards (Yandex, Google)
+- Unix time can be taken from any real time source (RTC, NTP), and also converted from the date and time using the library [unixtime] (https://github.com/gyverlibs/unixtime)
 
-![diagram](/doc/angles.png)
-- **Declination angle** - the angle from the direction to the sun at the equinox, varies throughout the year. The equinox angle itself is `90 - latitude`
-- **Azimuth** - horizontal direction to the sun, calculated from the direction to the North clockwise
-- **Elevation** - vertical direction to the sun from the horizon
+! [Diagram] (/doc/angles.png)
+- ** The angle of declension ** - the angle from the direction to the sun at the point of the equinox, changes during the year.The angle of equinox itself is `90 - LATE`
+- ** azimuth ** - a direction in the sun is horizontally, it is considered from the direction to the north clockwise
+- ** elevation ** - a direction in the sun vertically from the horizon
 
-<a id="example"></a>
+<a id="EXAMPLE"> </a>
 ## Example
-```cpp
-#include <SunPosition.h>
+`` `CPP
+#include <Sunposition.h>
 
-void setup() {
-  Serial.begin(9600);
-  SunPosition sun(55.75, 37.62, 1658325600);
-  //sun.compute(55.75, 37.62, 1658325600);
-  Serial.println(sun.altitude());
-  Serial.println(sun.azimuth());
-  Serial.prcranberry intln(sun.declination());
+VOID setup () {
+  Serial.Begin (9600);
+  SunPounion Sun (55.75, 37.62, 1658325600);
+  //sun.computE(55.75, 37.62, 1658325600);
+  Serial.println (sun.altite ());
+  Serial.println (sun.azimuth ());
+  Serial.println (sun.Decline ());
 }
 
-void loop() {
+VOID loop () {
 }
-```
+`` `
 
-<a id="versions"></a>
-## Versions
-- v1.0
+<a id="versions"> </a>
+## versions
+- V1.0
+- V1.1 - the equations are completely rewritten, the output of the time and the azimuth of sunset/dawn and other useful angles (see Doku) have been added
 
-<a id="feedback"></a>
-## Bugs and feedback
-When you find bugs, create an **Issue**, or better, immediately write to the mail [alex@alexgyver.ru](mailto:alex@alexgyver.ru)
-The library is open for revision and your **Pull Request**'s!
+<a id="feedback"> </a>
+## bugs and feedback
+Create ** Issue ** when you find the bugs, and better immediately write to the mail [alex@alexgyver.ru] (mailto: alex@alexgyver.ru)
+The library is open for refinement and your ** pull Request ** 'ow!
 
-When reporting bugs or incorrect work of the library, it is necessary to indicate:
-- Library version
-- What MK is used
+When reporting about bugs or incorrect work of the library, it is necessary to indicate:
+- The version of the library
+- What is MK used
 - SDK version (for ESP)
-- Arduino IDE Version
-- Whether built-in examples work correctly, which use functions and constructs that lead to a bug in your code
-- What code was loaded, what work was expected from it and how it works in reality
-- Ideally, attach the minimum code in which the bug is observed. Not a canvas of a thousand lines, but a minimal code
+- version of Arduino ide
+- whether the built -in examples work correctly, in which the functions and designs are used, leading to a bug in your code
+- what code has been loaded, what work was expected from it and how it works in reality
+- Ideally, attach the minimum code in which the bug is observed.Not a canvas of a thousand lines, but a minimum code
