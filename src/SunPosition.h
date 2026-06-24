@@ -62,13 +62,13 @@ struct SunPosition {
         float y = tan(ObliqCor / 2) * tan(ObliqCor / 2);
         float eqTime = 4 * degrees(y * sin(2 * GeomMeanLong) - 2 * EccEart * sin(GeomMeanAnom) + 4 * EccEart * y * sin(GeomMeanAnom) * cos(2 * GeomMeanLong) - 0.5 * y * y * sin(4 * GeomMeanLong) - 1.25 * EccEart * EccEart * sin(2 * GeomMeanAnom));   // Eq of Time (minutes)
 #endif
-        ha = degrees(acos(-0.01454 / (cos(lat) * cos(decl)) - tan(lat) * tan(decl)));       // HA sunrise
-        if (abs(gmt) <= 12) gmt *= 60;                                                      // gmt -> minutes
-        noonT = 720 - 4 * lon - eqTime + gmt;                                               // Solar Noon (min) + gmt
-        float hrAngl = fmod(hours * 1440 + eqTime + 4 * lon, 1440) / 4;                     // True Solar Time (min)
-        hrAngl = hrAngl + (hrAngl < 0 ? 180 : -180);                                        // Hour Angle
-        zen = acos(sin(lat) * sin(decl) + cos(lat) * cos(decl) * cos(radians(hrAngl)));     // Zenith
-        azm = degrees(acos(((sin(lat) * cos(zen)) - sin(decl)) / (cos(lat) * sin(zen))));   // Azimuth
+        ha = degrees(acos(-0.01454 / (cos(lat) * cos(decl)) - tan(lat) * tan(decl)));                       // HA sunrise
+        if (abs(gmt) <= 12) gmt *= 60;                                                                      // gmt -> minutes
+        noonT = 720 - 4 * lon - eqTime + gmt;                                                               // Solar Noon (min) + gmt
+        float hrAngl = fmod(hours * 1440 + eqTime + 4 * lon, 1440) / 4;                                     // True Solar Time (min)
+        hrAngl = hrAngl + (hrAngl < 0 ? 180 : -180);                                                        // Hour Angle
+        zen = acos(sin(lat) * sin(decl) + cos(lat) * cos(decl) * cos(radians(hrAngl)));                     // Zenith
+        azm = degrees(acos(max(min(((sin(lat) * cos(zen)) - sin(decl)) / (cos(lat) * sin(zen)),-1),1)));    // Azimuth
         decl = degrees(decl);
         alt = 90 - degrees(zen);
         azm = (hrAngl > 0) ? (azm + 180) : (540 - azm);
